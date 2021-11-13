@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import { auth } from '../../firebase'
+import { auth } from './../../firebase';
 import { toast } from 'react-toastify';
 import { sendSignInLinkToEmail } from 'firebase/auth';
 
 
-function Register() {
+const RegisterComplete = ({ history }) => {
   const [email, setEmail] = useState("");
+
+  const [password, setPassword] = useState('')
   const handleSubmit = async (e) => {
     e.preventDefault();
     const config = {
@@ -13,12 +15,13 @@ function Register() {
       handleCodeInApp: true
     }
     sendSignInLinkToEmail(auth, email, config).then(() => {
+
       toast.success(
         `Email is sent to ${email}. Click the link to complete your registration.`
       );
       window.localStorage.setItem('emailForRegistartion', email)
       setEmail("");
-    });
+    })
 
   };
   const registerForm = () => (
@@ -51,4 +54,4 @@ function Register() {
   );
 }
 
-export default Register;
+export default RegisterComplete;
