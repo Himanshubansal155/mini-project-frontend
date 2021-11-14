@@ -17,7 +17,7 @@ import { LoadingOutlined } from "@ant-design/icons";
 // import RegisterComplete from "./pages/auth/RegisterComplete";
 // import ForgotPassword from "./pages/auth/ForgotPassword";
 // import History from "./pages/user/History";
-// import UserRoute from "./components/routes/UserRoute";
+ import UserRoute from "./components/routes/UserRoute";
 // import AdminRoute from "./components/routes/AdminRoute";
 // import Password from "./pages/user/Password";
 // import Wishlist from "./pages/user/Wishlist";
