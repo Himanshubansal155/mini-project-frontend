@@ -35,7 +35,15 @@ useEffect(() => {
   return () => unsubscribe();
 }, []);
   return (
-    <>
+    <Suspense
+      fallback={
+        <div className="col text-center p-5">
+          __ React Redux EC
+          <LoadingOutlined />
+          MMERCE __
+        </div>
+      }
+    >
       <Header />
       <ToastContainer />
       <Switch>
@@ -45,7 +53,8 @@ useEffect(() => {
         <Route exact path="/register/complete" component={RegisterComplete} />
         <Route exact path="/forgot/password" component={ForgotPassword} />
       </Switch>
-    </>
+    </Suspense>
   );
 };
+
 export default App;

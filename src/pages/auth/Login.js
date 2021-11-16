@@ -1,23 +1,23 @@
-import React, { useState,useEffect } from "react";
-import { auth,googleAuthProvider } from "../../firebase";
+import React, { useState, useEffect } from "react";
+import { auth, googleAuthProvider } from "../../firebase";
 import { toast } from "react-toastify";
 import { Button } from "antd";
-import {MailOutlined,GoogleOutlined} from "@ant-design/icons";
-import {useDispatch,useSelector} from "react-redux";
+import { MailOutlined, GoogleOutlined } from "@ant-design/icons";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-
-
-const Login = ({history}) => {
+const Login = ({ history }) => {
   const [email, setEmail] = useState("ronak.agrawal_cs19@gla.ac.in");
   const [password, setPassword] = useState("9058858229");
   const [laoding, setLoading] = useState(false);
 
-  const {user} = useSelector((state) => ({...state}));
+  const { user } = useSelector((state) => ({ ...state }));
 
-  useEffect=(() => {
-    if(user && user.token) history.push("/");
-},[user]);
+  useEffect =
+    (() => {
+      if (user && user.token) history.push("/");
+    },
+    [user]);
 
   let dispatch = useDispatch();
   const handleSubmit = async (e) => {
@@ -25,90 +25,84 @@ const Login = ({history}) => {
     setLoading(true);
     //console.table(email,password);
     try {
-      const result = await auth.signInWithEmailAndPassword(email,password);
+      const result = await auth.signInWithEmailAndPassword(email, password);
       //console.log(result);
-      const {user} = result;
+      const { user } = result;
       const idTokenResult = await user.getIdTokenResult();
       dispatch({
-        type:'LOGGED_IN_USER',
+        type: "LOGGED_IN_USER",
         payload: {
           email: user.email,
           token: idTokenResult.token,
         },
       });
-      history.push('/')
-
-    }catch(error){
+      history.push("/");
+    } catch (error) {
       console.log(error);
       toast.error(error.message);
       setLoading(false);
-
     }
-    };
+  };
 
-    const googleLogin = async () => {
-      auth.signInWithPopup(googleAuthProvider)
+  const googleLogin = async () => {
+    auth
+      .signInWithPopup(googleAuthProvider)
       .then(async (result) => {
-        const {user} = result
+        const { user } = result;
         const idTokenResult = await user.getIdTokenResult();
         dispatch({
-          type:'LOGGED_IN_USER',
+          type: "LOGGED_IN_USER",
           payload: {
             email: user.email,
             token: idTokenResult.token,
           },
         });
-        history.push('/')
+        history.push("/");
       })
-      .catch(err => {
-        console.log(err)
+      .catch((err) => {
+        console.log(err);
         toast.error(err.message);
       });
-    };
+  };
 
   const loginForm = () => (
-
     <form onSubmit={handleSubmit}>
-
-     <div className="form-group">
-      <input
-        type="email"
-        className="form-control"
-        value={email}
-        onChange={e => setEmail(e.target.value)}
-        placeholder= "Your email"
-        autoFocus 
-        />
-      </div>  
-
       <div className="form-group">
-      <input
-        type="password"
-        className="form-control"
-        value={password}
-        onChange={e => setPassword(e.target.value)}
-        placeholder= "Your password"
-      />
-
+        <input
+          type="email"
+          className="form-control"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Your email"
+          autoFocus
+        />
       </div>
 
-      
-        <br />
-        <Button
-         onClick={handleSubmit}
-         type="primary"
-         className="mb-3"
-         block
-         shape="round"
-         icon={<MailOutlined />}
-         size="large"
-         disabled={!email || password.length < 6}
-        >Login with Email/Password
-        </Button>
+      <div className="form-group">
+        <input
+          type="password"
+          className="form-control"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Your password"
+        />
+      </div>
+
+      <br />
+      <Button
+        onClick={handleSubmit}
+        type="primary"
+        className="mb-3"
+        block
+        shape="round"
+        icon={<MailOutlined />}
+        size="large"
+        disabled={!email || password.length < 6}
+      >
+        Login with Email/Password
+      </Button>
     </form>
   );
-
-
 
   return (
     <div className="container p-5">
@@ -116,28 +110,26 @@ const Login = ({history}) => {
         <div className="col-md-6 offset-md-3">
           {laoding ? (
             <h4 className="text-danger">Loading...</h4>
-         
-  ):( 
-    <h4>Login</h4>   
-  )}
+          ) : (
+            <h4>Login</h4>
+          )}
           {loginForm()}
 
-        <Button
-         onClick={googleLogin}
-         type="danger"
-         className="mb-3"
-         block
-         shape="round"
-         icon={<GoogleOutlined />}
-         size="large"
-         
-        >
-          Login with Google
-        </Button>
+          <Button
+            onClick={googleLogin}
+            type="danger"
+            className="mb-3"
+            block
+            shape="round"
+            icon={<GoogleOutlined />}
+            size="large"
+          >
+            Login with Google
+          </Button>
 
-        <Link to="/forgot/password" className="float-right text-danger">
-          Forgot Password
-        </Link>
+          <Link to="/forgot/password" className="float-right text-danger">
+            Forgot Password
+          </Link>
         </div>
       </div>
     </div>
