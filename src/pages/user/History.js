@@ -61,7 +61,7 @@ const History = () => {
   const showDownloadLink = (order) => (
     <PDFDownloadLink
       document={<Invoice order={order} />}
-      fileName="invoice.pdf"
+      fileName={order.orderdBy + ".pdf"}
       className="btn btn-sm btn-block btn-outline-primary"
     >
       Download PDF
