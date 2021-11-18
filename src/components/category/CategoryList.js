@@ -20,7 +20,7 @@ const CategoryList = () => {
         key={c._id}
         className="col btn btn-outlined-primary btn-lg btn-block btn-raised m-3"
       >
-        <Link to={`/category/${c.slug}`}>{c.name}</Link>
+        <Link to={`/category/${c.slug}`} className="w-100 d-block">{c.name}</Link>
       </div>
     ));
 
