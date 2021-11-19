@@ -15,7 +15,7 @@ const Invoice = ({ order }) => (
         ~ {new Date().toLocaleString()} ~
       </Text>
       <Text style={styles.title}>Order Invoice</Text>
-      <Text style={styles.author}>React Redux Ecommerce</Text>
+      <Text style={styles.author}>Mini Project</Text>
       <Text style={styles.subtitle}>Order Summary</Text>
 
       <Table>
@@ -41,7 +41,7 @@ const Invoice = ({ order }) => (
       <Text style={styles.text}>
         <Text>
           Date: {"               "}
-          {new Date(order.paymentIntent.created * 1000).toLocaleString()}
+          {new Date(order.paymentIntent.created).toUTCString()}
         </Text>
         {"\n"}
         <Text>
