@@ -11,8 +11,7 @@ const RegisterComplete = ({ history }) => {
 
   useEffect(() => {
     setEmail(window.localStorage.getItem('emailForRegistration'));
-    //console.log(window.location.href);
-    //console.log(window.localStorage.getItem('emailForRegistration'));
+    
   },[]);
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,7 +26,7 @@ const RegisterComplete = ({ history }) => {
     }
     try{
       const result = await auth.signInWithEmailLink(email,window.location.href);
-      //console.log("RESULT",result);
+      
       if(result.user.emailVerified){
         window.localStorage.removeItem("emailForRegistration")
         let user = auth.currentUser

@@ -17,45 +17,44 @@ import { useHistory } from "react-router-dom";
 
 const { TabPane } = Tabs;
 
-// this is childrend component of Product page
+
 const SingleProduct = ({ product, onStarClick, star }) => {
   const [tooltip, setTooltip] = useState("Click to add");
 
-  // redux
+  
   const { user, cart } = useSelector((state) => ({ ...state }));
   const dispatch = useDispatch();
-  // router
+  
   let history = useHistory();
 
   const { title, images, description, _id } = product;
 
   const handleAddToCart = () => {
-    // create cart array
+   
     let cart = [];
     if (typeof window !== "undefined") {
-      // if cart is in local storage GET it
+      
       if (localStorage.getItem("cart")) {
         cart = JSON.parse(localStorage.getItem("cart"));
       }
-      // push new product to cart
+     
       cart.push({
         ...product,
         count: 1,
       });
-      // remove duplicates
+      
       let unique = _.uniqWith(cart, _.isEqual);
-      // save to local storage
-      // console.log('unique', unique)
+      
       localStorage.setItem("cart", JSON.stringify(unique));
-      // show tooltip
+      
       setTooltip("Added");
 
-      // add to reeux state
+      
       dispatch({
         type: "ADD_TO_CART",
         payload: unique,
       });
-      // show cart items in side drawer
+      
       dispatch({
         type: "SET_VISIBLE",
         payload: true,

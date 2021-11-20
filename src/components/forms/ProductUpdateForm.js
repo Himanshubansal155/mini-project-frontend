@@ -15,7 +15,7 @@ const ProductUpdateForm = ({
   setArrayOfSubs,
   selectedCategory,
 }) => {
-  // destructure
+  
   const {
     title,
     description,
