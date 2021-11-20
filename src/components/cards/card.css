@@ -1,0 +1,4 @@
+.carHeight .slider-wrapper img {
+  max-height: 500px;
+  object-fit: contain;
+}

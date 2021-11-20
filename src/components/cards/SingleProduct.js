@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Card, Tabs, Tooltip } from "antd";
-import { Link } from "react-router-dom";
 import { HeartOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
@@ -14,47 +13,36 @@ import { useSelector, useDispatch } from "react-redux";
 import { addToWishlist } from "../../functions/user";
 import { toast } from "react-toastify";
 import { useHistory } from "react-router-dom";
+import './card.css';
 
 const { TabPane } = Tabs;
-
 
 const SingleProduct = ({ product, onStarClick, star }) => {
   const [tooltip, setTooltip] = useState("Click to add");
 
-  
-  const { user, cart } = useSelector((state) => ({ ...state }));
+  const { user } = useSelector((state) => ({ ...state }));
   const dispatch = useDispatch();
-  
   let history = useHistory();
 
   const { title, images, description, _id } = product;
 
   const handleAddToCart = () => {
-   
     let cart = [];
     if (typeof window !== "undefined") {
-      
       if (localStorage.getItem("cart")) {
         cart = JSON.parse(localStorage.getItem("cart"));
       }
-     
       cart.push({
         ...product,
         count: 1,
       });
-      
       let unique = _.uniqWith(cart, _.isEqual);
-      
       localStorage.setItem("cart", JSON.stringify(unique));
-      
       setTooltip("Added");
-
-      
       dispatch({
         type: "ADD_TO_CART",
         payload: unique,
       });
-      
       dispatch({
         type: "SET_VISIBLE",
         payload: true,
@@ -75,8 +63,8 @@ const SingleProduct = ({ product, onStarClick, star }) => {
     <>
       <div className="col-md-7">
         {images && images.length ? (
-          <Carousel showArrows={true} autoPlay infiniteLoop>
-            {images && images.map((i) => <img src={i.url} key={i.public_id} />)}
+          <Carousel showArrows={true} autoPlay infiniteLoop className="carHeight">
+            {images && images.map((i) => <img src={i.url} key={i.public_id}/>)}
           </Carousel>
         ) : (
           <Card cover={<img src={Laptop} className="mb-3 card-image" />}></Card>
