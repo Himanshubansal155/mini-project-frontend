@@ -39,7 +39,7 @@ const Shop = () => {
     loadAllProducts();
     getCategories().then((res) => setCategories(res.data));
     getSubs().then((res) => setSubs(res.data));
-  }, []);
+  }, []);// eslint-disable-line react-hooks/exhaustive-deps
 
   const fetchProducts = (arg) => {
     fetchProductsByFilter(arg).then((res) => {
@@ -67,7 +67,7 @@ const Shop = () => {
   useEffect(() => {
     console.log("ok to request");
     fetchProducts({ price });
-  }, [ok]);
+  }, [ok]);// eslint-disable-line react-hooks/exhaustive-deps
 
   const handleSlider = (value) => {
     dispatch({

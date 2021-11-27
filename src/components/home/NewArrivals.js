@@ -12,7 +12,7 @@ const NewArrivals = () => {
 
   useEffect(() => {
     loadAllProducts();
-  }, [page]);
+  }, [page]);// eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     getProductsCount().then((res) => setProductsCount(res.data));

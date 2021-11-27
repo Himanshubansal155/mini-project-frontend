@@ -33,7 +33,7 @@ const ProductCreate = () => {
 
   useEffect(() => {
     loadCategories();
-  }, []);
+  }, []);// eslint-disable-line react-hooks/exhaustive-deps
 
   const loadCategories = () =>
     getCategories().then((c) => setValues({ ...values, categories: c.data }));

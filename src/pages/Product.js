@@ -16,7 +16,7 @@ const Product = ({ match }) => {
 
   useEffect(() => {
     loadSingleProduct();
-  }, [slug]);
+  }, [slug]);// eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (product.ratings && user) {

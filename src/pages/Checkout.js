@@ -31,7 +31,7 @@ const Checkout = ({ history }) => {
       setProducts(res.data.products);
       setTotal(res.data.cartTotal);
     });
-  }, []);
+  }, []);// eslint-disable-line react-hooks/exhaustive-deps
 
   const emptyCart = () => {
     // remove from local storage
