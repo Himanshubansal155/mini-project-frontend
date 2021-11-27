@@ -29,7 +29,7 @@ const StripeCheckout = ({ history }) => {
     createPaymentIntent(user.token, coupon).then((res) => {
       console.log("create payment intent", res.data);
       setClientSecret(res.data.clientSecret);
-      // additional response received on successful payment
+      
       setCartTotal(res.data.cartTotal);
       setTotalAfterDiscount(res.data.totalAfterDiscount);
       setPayable(res.data.payable);
@@ -53,27 +53,26 @@ const StripeCheckout = ({ history }) => {
       setError(`Payment failed ${payload.error.message}`);
       setProcessing(false);
     } else {
-      // here you get result after successful payment
-      // create order and save in database for admin to process
+      
       createOrder(payload, user.token).then((res) => {
         if (res.data.ok) {
-          // empty cart from local storage
+          
           if (typeof window !== "undefined") localStorage.removeItem("cart");
-          // empty cart from redux
+          
           dispatch({
             type: "ADD_TO_CART",
             payload: [],
           });
-          // reset coupon to false
+         
           dispatch({
             type: "COUPON_APPLIED",
             payload: false,
           });
-          // empty cart from database
+          
           emptyUserCart(user.token);
         }
       });
-      // empty user cart from redux store and local storage
+      
       console.log(JSON.stringify(payload, null, 4));
       setError(null);
       setProcessing(false);
@@ -82,10 +81,8 @@ const StripeCheckout = ({ history }) => {
   };
 
   const handleChange = async (e) => {
-    // listen for changes in the card element
-    // and display any errors as the custoemr types their card details
-    setDisabled(e.empty); // disable pay button if errors
-    setError(e.error ? e.error.message : ""); // show error message
+    
+    setError(e.error ? e.error.message : ""); 
   };
 
   const cartStyle = {
