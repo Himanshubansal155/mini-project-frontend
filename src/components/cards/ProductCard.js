@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useSelector } from "react";
 import { Card, Tooltip } from "antd";
 import { EyeOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 import laptop from "../../images/laptop.png";
@@ -12,7 +12,6 @@ const { Meta } = Card;
 const ProductCard = ({ product }) => {
   const [tooltip, setTooltip] = useState("Click to add");
 
-  
   const { user, cart } = useSelector((state) => ({ ...state }));
   const dispatch = useDispatch();
 
